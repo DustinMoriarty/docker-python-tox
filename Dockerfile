@@ -26,8 +26,9 @@ RUN apt-get update && apt-get install -y \
           git
 
 # Install tox dependencies
-RUN apt-get update && apt-get install -y tox
+RUN apt-get update && apt-get install -y python3 python3-pip
 WORKDIR /app
+RUN python3 -m pip install tox
 
 # User installation
 USER ${USR}
@@ -41,4 +42,3 @@ RUN ${PYENV_ROOT}/bin/pyenv install 3.7.9
 RUN ${PYENV_ROOT}/bin/pyenv install 3.8.6
 
 CMD ["tox"]
-
