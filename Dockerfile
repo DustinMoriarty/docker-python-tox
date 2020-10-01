@@ -35,7 +35,7 @@ RUN ${PYENV_ROOT}/bin/pyenv install 3.5.9
 RUN ${PYENV_ROOT}/bin/pyenv install 3.6.11
 RUN ${PYENV_ROOT}/bin/pyenv install 3.7.9
 RUN ${PYENV_ROOT}/bin/pyenv install 3.8.6
-RUN ${PYENV_ROOT}/bin/pyenv global 3.5.9 3.6.11 3.7.9 3.8.6
+RUN ${PYENV_ROOT}/bin/pyenv global 3.8.6 3.7.9 3.6.11 3.5.9 
 
 # Install tox dependencies
 FROM debian:buster-slim
