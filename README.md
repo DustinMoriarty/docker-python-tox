@@ -11,13 +11,11 @@ The following versions are built in.
 
 In order to minimize the size of the image, the pyenv build  requirements are not included. If you would like to use additional versions of python in your own docker image, you will need to also install the necessary build requirements. 
 
-
 ## Installation
 Install from docker hub.
 ```bash
 docker pull buildright/tox
 ```
-
 ## Usage
 The application, along with the tox.ini should be placed in the /app directory at runtime. In the example below, the path to the application is the present working directory.
 
