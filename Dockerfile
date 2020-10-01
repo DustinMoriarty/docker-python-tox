@@ -57,4 +57,7 @@ RUN echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/${USR}/.bashrc
 # Set up app
 WORKDIR /app
 
+COPY tests /tests
+#RUN /tests/test
+
 CMD ["tox"]
