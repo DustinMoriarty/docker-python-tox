@@ -1,0 +1,2 @@
+docker build -t buildright/tox:test ../
+docker run -v "$PWD/mock-app/:/app" buildright/tox:test
