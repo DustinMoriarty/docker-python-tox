@@ -47,6 +47,10 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 RUN python3 -m pip install tox
 RUN useradd -m -u $UID $USR
 
+# Set up app
+WORKDIR /app
+RUN chmod 777 /app
+
 # Set up user
 USER ${USR}
 
@@ -56,9 +60,6 @@ RUN echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/${USR}/.bashrc
 RUN echo 'eval "$(pyenv init -)"' >> /home/${USR}/.bashrc
 RUN echo 'eval "$(pyenv virtualenv-init -)"' >> /home/${USR}/.bashrc
 RUN ${PYENV_ROOT}/bin/pyenv global 3.8.6 3.7.9 3.6.11 3.5.9 
-
-# Set up app
-WORKDIR /app
 
 COPY tests /tests
 #RUN /tests/test
