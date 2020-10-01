@@ -41,4 +41,7 @@ RUN ${PYENV_ROOT}/bin/pyenv install 3.6.11
 RUN ${PYENV_ROOT}/bin/pyenv install 3.7.9
 RUN ${PYENV_ROOT}/bin/pyenv install 3.8.6
 
+COPY tests /tests
+#RUN /tests/test
+
 CMD ["tox"]
