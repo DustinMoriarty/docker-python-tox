@@ -79,14 +79,6 @@ ENV PYENV_INIT="eval \"\$(pyenv init -)\" && eval \"\$(pyenv virtualenv-init -)\
 # Set up user
 USER ${USR}
 
-## Set global versions.
-#RUN touch ${PYENV_ROOT}/version
-#RUN for VERSION in ${PYTHON_VERSIONS}; \
-#    do \
-#        echo $VERSION >> ${PYENV_ROOT}/version; \
-#        echo "Adding $VERSION as global"; \
-#    done;
-
 # Initialize pyenv for bash and sh
 RUN echo ${PYENV_INIT} >> /home/${USR}/.bashrc
 RUN echo ${PYENV_INIT} >> /home/${USR}/.profile
@@ -94,7 +86,7 @@ RUN echo ${PYENV_INIT} >> /home/${USR}/.profile
 # Test The Image (Make sure it can test an app with tox.)
 COPY --chown=${USR} tests /tests
 RUN chmod 777 /tests/test
-#RUN /tests/test
+RUN bash -c "${PYENV_INIT} && /tests/test"
 
 # Run tox in full verbose mode so that all output goes to stderr where 
 # it can be accessed in docker logs.
