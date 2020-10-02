@@ -1,5 +1,5 @@
-.tox
-__pycache__
-.python-version
-*.egg-info
-venv
+**/.tox
+**/__pycache__
+**/.python-version
+**/*.egg-info
+**/venv
