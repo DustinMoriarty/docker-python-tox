@@ -59,7 +59,7 @@ COPY --from=0 --chown=${USR} $PYENV_ROOT $PYENV_ROOT
 RUN echo 'export PATH="${PYENV_ROOT}/bin:${PYENV_ROOT}/plugins/pyenv-virtualenv/shims:$PATH"' >> /home/${USR}/.bashrc
 RUN echo 'eval "$(pyenv init -)"' >> /home/${USR}/.bashrc
 RUN echo 'eval "$(pyenv virtualenv-init -)"' >> /home/${USR}/.bashrc
-RUN ${PYENV_ROOT}/bin/pyenv global 3.8.6 3.7.9 3.6.11 
+RUN ${PYENV_ROOT}/bin/pyenv global 3.8.6 3.7.9 3.6.11 3.5.9 
 
 COPY --chown=${USR} tests /tests
 RUN chmod 777 /tests/test
