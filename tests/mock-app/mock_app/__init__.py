@@ -1,4 +1,1 @@
-import requests
-
-def foo(a):
-    return a
+from mock_app.foo import foo

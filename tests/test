@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+cd /tests/mock-app && tox
+rm -rf tests/mock-app/.tox
