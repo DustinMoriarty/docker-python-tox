@@ -13,7 +13,6 @@ ARG PYTHON_VERSIONS="3.8.6 3.7.9 3.6.11 3.5.9"
 # Environment
 ENV PYENV_ROOT="/home/${USR}/.pyenv"
 ENV PATH="${PYENV_ROOT}/plugins/pyenv-virtualenv/shims:${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:$PATH"
-ENV PYENV_INIT='eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)" && echo "pyenv setup"'
 
 # Set Up User
 RUN useradd -m -u $UID $USR
@@ -60,7 +59,7 @@ RUN for VERSION in ${PYTHON_VERSIONS}; \
 ###############################################################################
 # Runtime image without build packages.
 ###############################################################################
-FROM base as application
+FROM base
 ARG USR="wkr"
 ARG UID="1000"
 ARG PYTHON_VERSIONS="3.8.6 3.7.9 3.6.11 3.5.9"
@@ -76,21 +75,26 @@ RUN chmod 777 /app
 # Copy pyenv
 COPY --from=builder --chown=${USR} $PYENV_ROOT $PYENV_ROOT
 
+ENV PYENV_INIT="eval \"\$(pyenv init -)\" && eval \"\$(pyenv virtualenv-init -)\" && pyenv global ${PYTHON_VERSIONS}" 
 # Set up user
 USER ${USR}
 
-# Set global versions.
-RUN touch ${PYENV_ROOT}/version
-RUN for VERSION in $PYENV_VERSIONS; do echo $VERSION >> ${PYENV_ROOT}}/version; done
+## Set global versions.
+#RUN touch ${PYENV_ROOT}/version
+#RUN for VERSION in ${PYTHON_VERSIONS}; \
+#    do \
+#        echo $VERSION >> ${PYENV_ROOT}/version; \
+#        echo "Adding $VERSION as global"; \
+#    done;
 
 # Initialize pyenv for bash and sh
 RUN echo ${PYENV_INIT} >> /home/${USR}/.bashrc
 RUN echo ${PYENV_INIT} >> /home/${USR}/.profile
 
-# Test The Image
+# Test The Image (Make sure it can test an app with tox.)
 COPY --chown=${USR} tests /tests
 RUN chmod 777 /tests/test
-RUN /tests/test
+#RUN /tests/test
 
 # Run tox in full verbose mode so that all output goes to stderr where 
 # it can be accessed in docker logs.
