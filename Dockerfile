@@ -1,5 +1,5 @@
 ###############################################################################
-# Base image for building python versions.
+# Base image.
 ###############################################################################
 FROM debian:buster-slim as base
 
@@ -8,7 +8,7 @@ ARG PYENV_REPO=https://github.com/pyenv/pyenv.git
 ARG PYENV_VIRTUALENV_REPO=https://github.com/pyenv/pyenv-virtualenv.git
 ARG USR="wkr"
 ARG UID="1000"
-ARG PYTHON_VERSIONS="3.8.6 3.7.9 3.6.11 3.5.9"
+ARG PYTHON_VERSIONS="3.8.6 3.7.9 3.6.11 3.5.9 2.7.18"
 
 # Environment
 ENV PYENV_ROOT="/home/${USR}/.pyenv"
@@ -18,7 +18,7 @@ ENV PATH="${PYENV_ROOT}/plugins/pyenv-virtualenv/shims:${PYENV_ROOT}/shims:${PYE
 RUN useradd -m -u $UID $USR
 
 ###############################################################################
-# Base image for building python versions.
+# Builder image for building python versions.
 ###############################################################################
 FROM base as builder
 
@@ -62,7 +62,7 @@ RUN for VERSION in ${PYTHON_VERSIONS}; \
 FROM base
 ARG USR="wkr"
 ARG UID="1000"
-ARG PYTHON_VERSIONS="3.8.6 3.7.9 3.6.11 3.5.9"
+ARG PYTHON_VERSIONS="3.8.6 3.7.9 3.6.11 3.5.9 2.7.18"
 
 # Install tox
 RUN apt-get update && apt-get install -y python3 python3-pip
