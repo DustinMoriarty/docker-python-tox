@@ -2,14 +2,15 @@
 Test python projects in a repeatable build environment using tox. This image is to be used as part of a CICD pipeline to test python projects. This image can also be used for local testing in order to avoid the complexity of setting up the pyenv, tox stack and macking sure that tox is being called by the correct python executable.
 
 # Built in Python Versions
-The following versions are built in.
+The following python versions are built in.
 
+* 2.7.18
 * 3.5.9
 * 3.6.11
 * 3.7.9
 * 3.8.6
 
-In order to minimize the size of the image, the pyenv build  requirements are not included. If you would like to use additional versions of python in your own docker image, you will need to also install the necessary build requirements. 
+In order to minimize the size of the image, the pyenv build  requirements are not included. If you would like to use additional versions of python in your own docker image, you will need to also install the necessary build requirements or rebuild this image using the PYTHON_VERSIONS argument to specify the versions that you desire. 
 
 ## Installation
 Install from docker hub.
@@ -22,3 +23,7 @@ The application, along with the tox.ini should be placed in the /app directory a
 ```bash
 docker run -v "$PWD:/app" buildright/tox
 ```
+
+## References
+* [Docker Image](https://hub.docker.com/repository/docker/buildright/tox)
+* [Source](https://github.com/DustinMoriarty/docker-python-tox)
